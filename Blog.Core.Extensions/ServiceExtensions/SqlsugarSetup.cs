@@ -29,7 +29,7 @@ namespace Blog.Core.Extensions
                 var listConfig = new List<ConnectionConfig>();
                 // 从库
                 var listConfig_Slave = new List<SlaveConnectionConfig>();
-                BaseDBConfig.MutiConnectionString.Item2.ForEach(s =>
+                BaseDBConfig.MutiConnectionString.slaveDbs.ForEach(s =>
                 {
                     listConfig_Slave.Add(new SlaveConnectionConfig()
                     {
@@ -38,7 +38,7 @@ namespace Blog.Core.Extensions
                     });
                 });
 
-                BaseDBConfig.MutiConnectionString.Item1.ForEach(m =>
+                BaseDBConfig.MutiConnectionString.allDbs.ForEach(m =>
                 {
                     listConfig.Add(new ConnectionConfig()
                     {
@@ -46,7 +46,8 @@ namespace Blog.Core.Extensions
                         ConnectionString = m.Connection,
                         DbType = (DbType)m.DbType,
                         IsAutoCloseConnection = true,
-                        IsShardSameThread = true,
+                        // Check out more information: https://github.com/anjoy8/Blog.Core/issues/122
+                        IsShardSameThread = false,
                         AopEvents = new AopEvents
                         {
                             OnLogExecuting = (sql, p) =>

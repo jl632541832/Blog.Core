@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 
 namespace Blog.Core
@@ -44,6 +45,9 @@ namespace Blog.Core
 
             Permissions.IsUseIds4 = Appsettings.app(new string[] { "Startup", "IdentityServer4", "Enabled" }).ObjToBool();
 
+            // 确保从认证中心返回的ClaimType不被更改，不使用Map映射
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
             services.AddMemoryCacheSetup();
             services.AddRedisCacheSetup();
 
@@ -55,7 +59,7 @@ namespace Blog.Core
             services.AddSwaggerSetup();
             services.AddJobSetup();
             services.AddHttpContextSetup();
-            services.AddAppConfigSetup();
+            services.AddAppConfigSetup(Env);
             services.AddHttpApi();
             services.AddRedisInitMqSetup();
 
@@ -97,6 +101,8 @@ namespace Blog.Core
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 //设置时间格式
                 //options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
+                //忽略Model中为null的属性
+                //options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
             });
 
             _services = services;
@@ -156,10 +162,17 @@ namespace Blog.Core
             app.UseRouting();
             // 这种自定义授权中间件，可以尝试，但不推荐
             // app.UseJwtTokenAuth();
+
+            // 测试用户，用来通过鉴权
+            if (Configuration.GetValue<bool>("AppSettings:UseLoadTest"))
+            {
+                app.UseMiddleware<ByPassAuthMidd>();
+            }
             // 先开启认证
             app.UseAuthentication();
             // 然后是授权中间件
             app.UseAuthorization();
+
             // 开启异常中间件，要放到最后
             //app.UseExceptionHandlerMidd();
             // 性能分析
