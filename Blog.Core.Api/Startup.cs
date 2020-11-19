@@ -63,6 +63,9 @@ namespace Blog.Core
             services.AddHttpApi();
             services.AddRedisInitMqSetup();
 
+            services.AddRabbitMQSetup();
+            services.AddEventBusSetup();
+
             // 授权+认证 (jwt or ids4)
             services.AddAuthorizationSetup();
             if (Permissions.IsUseIds4)
@@ -92,6 +95,11 @@ namespace Blog.Core
                 // 全局路由前缀，统一修改路由
                 o.Conventions.Insert(0, new GlobalRoutePrefixFilter(new RouteAttribute(RoutePrefix.Name)));
             })
+            // 这种写法也可以
+            //.AddJsonOptions(options =>
+            //{
+            //    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            //})
             //全局配置Json序列化处理
             .AddNewtonsoftJson(options =>
             {
@@ -191,8 +199,11 @@ namespace Blog.Core
             app.UseSeedDataMildd(myContext, Env.WebRootPath);
             // 开启QuartzNetJob调度服务
             app.UseQuartzJobMildd(tasksQzServices, schedulerCenter);
-            //服务注册
+            // 服务注册
             app.UseConsulMildd(Configuration, lifetime);
+            // 事件总线，订阅服务
+            app.ConfigureEventBus();
+
         }
 
     }
