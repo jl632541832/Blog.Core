@@ -19,51 +19,65 @@
  
 </div>
 
-
+-------------------------------
 Blog.Core 开箱即用的企业级前后端分离【 .NET Core6.0 Api + Vue 2.x + RBAC】权限框架。  
 其他版本看具体分支吧🎉  
 官网：http://apk.neters.club/.doc/    
 
   
+---------------------
+
+**已被近100家公司所使用(🐱‍🚀)：[点击查看列表](https://github.com/anjoy8/Blog.Core/issues/75)**   欢迎盖楼，留下公司真实名字的，可得定制化指导服务。  
+同时商业授权付费版也悄悄准备上线，欢迎联系老张（QQ：3143422472）。
   
-**已被多家公司所使用(80+🐱‍🚀)：[点击查看列表](https://github.com/anjoy8/Blog.Core/issues/75)**   
-  
-项目单体部署，并发在400~500，一切正常(不保证自己的各种错误写法)。  
-如果搭配负载，效果更好。
+
 
 #### ❤ 真实用户反馈 ❤
 ```
+项目单体部署，并发在400~500，一切正常(不保证自己的各种错误写法)。  
+如果搭配负载，效果更好。
+
 1、A~CoderDong:
 应用场景：使用Blog.Core为基础骨架开发，搭建Client监控类守护进程项目，To C 客户群，
 并发情况：目前压测并发5k正常8秒处理完，并发10k可15秒处理完毕，异常不会丢失。
 生产配置：一台服务器（Linux环境 + 至强8核的16G内存 + mysql数据库 + 3台Nginx负载）
 
 ```
-  
-
-
+   
+ 
+ 
 &nbsp;
 
-#### Dokcer 快速启动
-如果想在服务器或者本地快速查看接口效果，直接Docker启动容器即可：
-```
- # 可以挂载配置文件和日志文件
- # 这里只是接口效果，想看前端效果，可以异步Blog.Admin查看后台管理系统
- docker run --name=apkcontainer -d \
-  -v /data/appsettings.json:/app/appsettings.json \
-  -v /data/Log/:/app/Log \
- -it -p 9291:9291 laozhangisphi/apkimg
-```
- 
+## 给个星星! ⭐️
+如果你喜欢这个项目或者它帮助你, 请给 Star~   
+如果你的项目中借鉴了本项目，请稍微说明下[https://github.com/anjoy8/Blog.Core/issues/75](https://github.com/anjoy8/Blog.Core/issues/75)，开源不易✨。  
+
+
 
 ### 功能与进度
 
-框架模块：  
+#### 商业授权付费版下🎁🎁🎁
+
+- [x] 包含下边框架模块中的所有功能；
+- [x] 全部表结构主键底层架构改成`string`类型（默认雪花，支持guid），更方便迁移；
+- [x] 完善部门数据权限，可以基于策略配置查看数据范围；
+- [x] 优化权限处理器，解决多实例分布式下，权限不同步问题（必须配置Redis）；
+- [x] 增加在线用户查看功能，并实现强制用户下线功能（必须配置Redis）；
+- [x] 增加用户黑名单功能（必须配置Redis）；
+- [ ] 打算增加岗位功能（单独建表），配合部门使用，目前是字符串（设计中，未完全实现）；
+- [ ] 后期优化站内通知功能，其实目前已经有SignalR来实现消息推送了，可以直接用；
+- [ ] 前端`Blog.Admin.Pro`使用`AndDesignVue`框架（设计中，未完全实现）；
+- [x] 铁粉奖励：如果参与上述功能和其他付费功能开发，可半价获取商业授权；
+
+
+
+#### 框架模块：  
 - [x] 采用`仓储+服务+接口`的形式封装框架；
 - [x] 异步 async/await 开发；
 - [x] 接入国产数据库ORM组件 —— SqlSugar，封装数据库操作；
 - [x] 支持自由切换多种数据库，MySql/SqlServer/Sqlite/Oracle/Postgresql/达梦/人大金仓；
 - [x] 实现项目启动，自动生成种子数据 ✨； 
+- [x] 实现数据库主键类型配置化，什么类型都可以自定义 ✨； 
 - [x] 五种日志记录，审计/异常/请求响应/服务操作/Sql记录等； 
 - [x] 支持项目事务处理（若要分布式，用cap即可）✨；
 - [x] 设计4种 AOP 切面编程，功能涵盖：日志、缓存、审计、事务 ✨；
@@ -95,7 +109,7 @@ Blog.Core 开箱即用的企业级前后端分离【 .NET Core6.0 Api + Vue 2.x 
 - [x] 新增 - Apollo 配置;
 - [x] 新增 Kafka 消息队列，并配合实现EventBus ✨;
 - [x] 新增 微信公众号管理，并集成到Blog.Admin后台 ✨;
-- [ ] 计划 - 数据部门权限;
+- [x] 新增 - 数据部门权限;
 
 微服务模块：
 - [x] 可配合 Docker 实现容器化；
@@ -107,22 +121,21 @@ Blog.Core 开箱即用的企业级前后端分离【 .NET Core6.0 Api + Vue 2.x 
 - [x] 可配合 Ids4   实现认证中心；
 
 
+### 自定义(中间件/服务)启动图
+![系统架构图](https://img.neters.club/github/load-tool.png)
+
+
 &nbsp;
 
-## 给个星星! ⭐️
-如果你喜欢这个项目或者它帮助你, 请给 Star~   
-如果你的项目中借鉴了本项目，请稍微说明下[https://github.com/anjoy8/Blog.Core/issues/75](https://github.com/anjoy8/Blog.Core/issues/75)，开源不易✨。  
 
 ## 贡献者们 
 
-Thanks goes to these wonderful people ([✨](https://github.com/anjoy8/Blog.Core/graphs/contributors)):（排名暂时按提交顺序）
-
-<!-- prettier-ignore-start -->
-| [<img src="https://avatars3.githubusercontent.com/u/28941816?s=460&v=3" width="100px;"/><br /><sub> anjoy8</sub>](https://github.com/anjoy8) <br /> 💻📖 💡  | [<img src="https://avatars0.githubusercontent.com/u/36782822?s=460&v=3" width="100px;"/><br /><sub> hudingwen</sub>](https://github.com/hudingwen) <br /> 💻 👀  | [<img src="https://avatars0.githubusercontent.com/u/32299016?s=460&v=3" width="100px;"/><br /><sub>binyly </sub>](https://github.com/binyly) <br />💻 👀 📖 👍 | [<img src="https://avatars0.githubusercontent.com/u/48714336?s=460&v=3" width="100px;"/><br /><sub>wuare </sub>](https://github.com/wuare) <br /> 💻😀 | [<img src="https://avatars3.githubusercontent.com/u/54385223?s=460&v=3" width="100px;"/><br /><sub>skang0401 </sub>](https://github.com/skang0401) <br /> 📖| [<img src="https://avatars1.githubusercontent.com/u/24422140?s=460&v=3" width="100px;"/><br /><sub>Jamnine</sub>](https://github.com/Jamnine) <br />💻 🌍|
-| :---: | :---: | :---: | :---: | :---: | :---: |
-|[<img src="https://avatars1.githubusercontent.com/u/19725014?s=460&v=3" width="118px;"/><br /><sub>aion1998 </sub>](https://github.com/aion1998) <br />👍|[<img src="https://avatars1.githubusercontent.com/u/54570786?s=460&v=3" width="118px;"/><br /><sub>RLei123 </sub>](https://github.com/RLei123) <br />😄|[<img src="https://avatars1.githubusercontent.com/u/33676184?s=460&v=3" width="118px;"/><br /><sub>cluyun </sub>](https://github.com/cluyun) <br />🍬|[<img src="https://avatars3.githubusercontent.com/u/33139361?s=460&v=3" width="118px;"/><br /><sub>blue20171027 </sub>](https://github.com/blue20171027) <br />✈|[<img src="https://avatars0.githubusercontent.com/u/15273487?s=460&v=3" width="118px;"/><br /><sub>anewboyz </sub>](https://github.com/anewboyz) <br />💻|[<img src="https://avatars3.githubusercontent.com/u/16607609?s=460&v=3" width="118px;"/><br /><sub>jxd728 </sub>](https://github.com/jxd728) <br />🌍|
-|[<img src="https://avatars0.githubusercontent.com/u/25163291?s=460&v=3" width="118px;"/><br /><sub>wmchuang </sub>](https://github.com/wmchuang) <br />🍟|[<img src="https://avatars2.githubusercontent.com/u/23184470?s=400&v=3" width="118px;"/><br /><sub>liuzhenyulive </sub>](https://github.com/liuzhenyulive) <br />💻|[<img src="https://avatars1.githubusercontent.com/u/34571008?s=400&v=3" width="118px;"/><br /><sub>JsonBy </sub>](https://github.com/JsonBy) <br />💻 💡 🤔|[<img src="https://avatars2.githubusercontent.com/u/34576675?s=400&v=3" width="118px;"/><br /><sub>hsxian </sub>](https://github.com/hsxian) <br />🎉|[<img src="https://avatars0.githubusercontent.com/u/58431215?s=400&v=4" width="118px;"/><br /><sub>cuno92 </sub>](https://github.com/cuno92) <br />📖|[<img src="https://avatars0.githubusercontent.com/u/22249987?s=400&v=3" width="118px;"/><br /><sub>317447880 </sub>](https://github.com/317447880) <br />💻|
-|[<img src="https://avatars0.githubusercontent.com/u/55371978?s=400&v=3" width="118px;"/><br /><sub>Shuisen </sub>](https://github.com/Shuisen) <br />💻|[<img src="https://avatars0.githubusercontent.com/u/45479028?s=400&v=3" width="118px;"/><br /><sub>www5255977 </sub>](https://github.com/www5255977) <br />🌍|[<img src="https://avatars0.githubusercontent.com/u/49057777?s=400&v=3" width="118px;"/><br /><sub>867824092 </sub>](https://github.com/867824092) <br />🍳|
+Thanks goes to these wonderful people ([✨](https://github.com/anjoy8/Blog.Core/graphs/contributors)):（排名暂时按提交顺序）  
+  
+    
+<a href="https://github.com/anjoy8/blog.core/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=anjoy8/blog.core" />
+</a>
 <!-- prettier-ignore-end -->
 
 This project follows the [all-contributors](https://github.com/anjoy8/Blog.Core/graphs/contributors) specification.
